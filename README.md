@@ -1,5 +1,8 @@
 # conway
 
+[logo]: http://g.recordit.co/2fLYWruJXS.gif
+
+
 ## run this code
 
 `$ git clone https://github.com/lcrossan/conway`
