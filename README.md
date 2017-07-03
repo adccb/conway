@@ -1,6 +1,6 @@
 # conway
 
-[logo]: http://g.recordit.co/2fLYWruJXS.gif
+[logo]: http://g.recordit.co/2fLYWruJXS.gif "gif of code running"
 
 
 ## run this code
