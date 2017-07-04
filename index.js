@@ -1,6 +1,6 @@
 const { Board } = require('./class')
 const blessed = require('blessed')
-const board = new Board({ rows: 25, cols: 25 })
+const board = new Board({ rows: 25, cols: 45 })
 
 var screen = blessed.screen({ smartCSR: true })
 screen.title = 'my window title'
@@ -26,9 +26,8 @@ screen.render()
 
 let numCycles = 0
 setInterval(() => {
-  const toRender = `{center}${board.render()}\n\n\n${numCycles} cycles completed{/center}`
-  box.setContent(toRender)
+  box.setContent(`{center}${board.render()}\n\n\n${numCycles} cycles completed{/center}`)
   board.tick()
   screen.render()
   numCycles++
-}, 300)
+}, 200)

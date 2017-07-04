@@ -30,11 +30,7 @@ class Board {
         const livingNeighbors = this.countCellNeighbors(rowIndex, colIndex)
 
         if(currentCell) {
-          if(livingNeighbors === 2 || livingNeighbors === 3) {
-            newBoard[rowIndex][colIndex] = 1
-          } else {
-            newBoard[rowIndex][colIndex] = 0
-          }
+          newBoard[rowIndex][colIndex] = livingNeighbors === 2 || livingNeighbors === 3  ? 1 : 0
         } else {
           newBoard[rowIndex][colIndex] = livingNeighbors === 3 ? 1 : 0
         }
