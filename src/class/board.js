@@ -11,8 +11,8 @@ const sum = (arr: Array<number>) => arr.reduce((a, b) => a + b, 0)
 
 const emptyArray = (length: number) => new Array(length).fill(undefined)
 const createBoard = (rows: number, cols: number, f: Function): BoardArray => {
-  return emptyArray(rows).map(_ => {
-    return emptyArray(cols).map(f)
+  return emptyArray(rows).map((_, rowIndex) => {
+    return emptyArray(cols).map((_, colIndex) => f(rowIndex, colIndex))
   })
 }
 
@@ -33,16 +33,20 @@ const numNeighbors = (board: BoardArray, row: number, col: number): number => {
 
 class Board {
   board: BoardArray
+  boardMap: BoardMap
 
-  constructor({ rows, cols }: BoardMap) {
+  constructor(boardMap: BoardMap) {
+    this.boardMap = boardMap
+
     this.board = createBoard(
-      rows, 
-      cols, 
+      boardMap.rows, 
+      boardMap.cols, 
       _ => ((Math.floor(Math.random() * 2): any) : Cell)
     )
   }
 
   tick() {
+    // this.board = 
     const newBoard = []
     this.board.forEach((row, rowIndex) => {
       newBoard[rowIndex] = []

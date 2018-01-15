@@ -20292,8 +20292,8 @@ const sum = arr => arr.reduce((a, b) => a + b, 0);
 
 const emptyArray = length => new Array(length).fill(undefined);
 const createBoard = (rows, cols, f) => {
-  return emptyArray(rows).map(_ => {
-    return emptyArray(cols).map(f);
+  return emptyArray(rows).map((_, rowIndex) => {
+    return emptyArray(cols).map((_, colIndex) => f(rowIndex, colIndex));
   });
 };
 
@@ -20303,11 +20303,14 @@ const numNeighbors = (board, row, col) => {
 
 class Board {
 
-  constructor({ rows, cols }) {
-    this.board = createBoard(rows, cols, _ => Math.floor(Math.random() * 2));
+  constructor(boardMap) {
+    this.boardMap = boardMap;
+
+    this.board = createBoard(boardMap.rows, boardMap.cols, _ => Math.floor(Math.random() * 2));
   }
 
   tick() {
+    // this.board = 
     const newBoard = [];
     this.board.forEach((row, rowIndex) => {
       newBoard[rowIndex] = [];
