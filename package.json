@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "jasmine",
-    "start": "node index.js"
+    "start": "node dist/main.js",
+    "watch": "webpack --watch --colors",
+    "flow": "flow"
   },
   "keywords": [],
   "author": "",
@@ -13,5 +15,12 @@
   "dependencies": {
     "blessed": "^0.1.81",
     "jasmine": "^2.6.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-flow": "^6.23.0",
+    "flow-bin": "^0.63.1",
+    "webpack": "^3.10.0"
   }
 }

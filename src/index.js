@@ -1,3 +1,5 @@
+// @flow
+
 const { Board } = require('./class')
 const blessed = require('blessed')
 const board = new Board({ rows: 25, cols: 45 })
@@ -31,3 +33,4 @@ setInterval(() => {
   screen.render()
   numCycles++
 }, 200)
+
