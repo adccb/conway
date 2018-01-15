@@ -8,9 +8,9 @@ type BoardMap = {
 }
 
 const sum = (arr: Array<number>) => arr.reduce((a, b) => a + b, 0)
-
+const toCell = b => b ? 1 : 0
 const emptyArray = (length: number) => new Array(length).fill(undefined)
-const createBoard = (rows: number, cols: number, f: Function): BoardArray => {
+const createBoard = ({ rows, cols }: BoardMap, f: Function): BoardArray => {
   return emptyArray(rows).map((_, rowIndex) => {
     return emptyArray(cols).map((_, colIndex) => f(rowIndex, colIndex))
   })
@@ -31,6 +31,10 @@ const numNeighbors = (board: BoardArray, row: number, col: number): number => {
   ])
 }
 
+const cellLives = (cell: Cell, neighbors: number): Cell => (
+  cell ? toCell(neighbors === 2 || neighbors === 3) : toCell(neighbors === 3)
+)
+
 class Board {
   board: BoardArray
   boardMap: BoardMap
@@ -39,31 +43,18 @@ class Board {
     this.boardMap = boardMap
 
     this.board = createBoard(
-      boardMap.rows, 
-      boardMap.cols, 
+      boardMap, 
       _ => ((Math.floor(Math.random() * 2): any) : Cell)
     )
   }
 
   tick() {
-    // this.board = 
-    const newBoard = []
-    this.board.forEach((row, rowIndex) => {
-      newBoard[rowIndex] = []
-      row.forEach((col, colIndex) => {
-        const currentCell = this.board[rowIndex][colIndex]
-        const livingNeighbors = numNeighbors(this.board, rowIndex, colIndex)
-
-        if(currentCell) {
-          newBoard[rowIndex][colIndex] = livingNeighbors === 2 || livingNeighbors === 3  ? 1 : 0
-        } else {
-          newBoard[rowIndex][colIndex] = livingNeighbors === 3 ? 1 : 0
-        }
-      })
-    })
-
-    this.board = newBoard
-    return this
+    this.board = createBoard(this.boardMap, (rowIndex, colIndex) => (
+      cellLives(
+        this.board[rowIndex][colIndex],
+        numNeighbors(this.board, rowIndex, colIndex)  
+      ) 
+    ))
   }
 
   render() {
