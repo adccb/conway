@@ -44,7 +44,7 @@ class Board {
 
     this.board = createBoard(
       boardMap, 
-      _ => ((Math.floor(Math.random() * 2): any) : Cell)
+      _ => Math.floor(Math.random() * 2)
     )
   }
 
