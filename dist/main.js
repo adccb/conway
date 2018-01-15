@@ -20291,7 +20291,11 @@ module.exports = { Board };
 const sum = arr => arr.reduce((a, b) => a + b, 0);
 
 const emptyArray = length => new Array(length).fill(undefined);
-const random = ({ rows, cols }) => emptyArray(rows).map(_ => emptyArray(cols).map(_ => Math.floor(Math.random() * 2)));
+const createBoard = (rows, cols, f) => {
+  return emptyArray(rows).map(_ => {
+    return emptyArray(cols).map(f);
+  });
+};
 
 const numNeighbors = (board, row, col) => {
   return sum([board[row - 1] ? board[row - 1][col - 1] : 0, board[row - 1] ? board[row - 1][col] : 0, board[row - 1] ? board[row - 1][col + 1] : 0, board[row] ? board[row][col - 1] : 0, board[row] ? board[row][col + 1] : 0, board[row + 1] ? board[row + 1][col - 1] : 0, board[row + 1] ? board[row + 1][col] : 0, board[row + 1] ? board[row + 1][col + 1] : 0]);
@@ -20299,8 +20303,8 @@ const numNeighbors = (board, row, col) => {
 
 class Board {
 
-  constructor(boardMap) {
-    this.board = random(boardMap);
+  constructor({ rows, cols }) {
+    this.board = createBoard(rows, cols, _ => Math.floor(Math.random() * 2));
   }
 
   tick() {

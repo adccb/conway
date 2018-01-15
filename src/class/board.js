@@ -10,13 +10,11 @@ type BoardMap = {
 const sum = (arr: Array<number>) => arr.reduce((a, b) => a + b, 0)
 
 const emptyArray = (length: number) => new Array(length).fill(undefined)
-const random = ({ rows, cols }: BoardMap) => (
-  emptyArray(rows).map(_ => (
-    emptyArray(cols).map(_ => (
-      ((Math.floor(Math.random() * 2): any) : Cell)
-    ))
-  ))
-)
+const createBoard = (rows: number, cols: number, f: Function): BoardArray => {
+  return emptyArray(rows).map(_ => {
+    return emptyArray(cols).map(f)
+  })
+}
 
 const numNeighbors = (board: BoardArray, row: number, col: number): number => {
   return sum([
@@ -36,8 +34,12 @@ const numNeighbors = (board: BoardArray, row: number, col: number): number => {
 class Board {
   board: BoardArray
 
-  constructor(boardMap: BoardMap) {
-    this.board = random(boardMap)
+  constructor({ rows, cols }: BoardMap) {
+    this.board = createBoard(
+      rows, 
+      cols, 
+      _ => ((Math.floor(Math.random() * 2): any) : Cell)
+    )
   }
 
   tick() {
